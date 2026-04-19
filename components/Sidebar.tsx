@@ -13,9 +13,9 @@ import {
 
 const navItems = [
   { href: "/", label: "Strona główna", icon: Home },
-  { href: "/discover", label: "Odkryj", icon: Compass },
-  { href: "/my-events", label: "Moje wydarzenia", icon: CalendarDays },
-  { href: "/settings", label: "Ustawienia", icon: Settings },
+  { href: "/odkrywaj", label: "Odkryj", icon: Compass },
+  { href: "/moje-wydarzenia", label: "Moje wydarzenia", icon: CalendarDays },
+  { href: "/ustawienia", label: "Ustawienia", icon: Settings },
 ];
 
 export default function Sidebar() {
