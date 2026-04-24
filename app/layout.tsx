@@ -4,6 +4,7 @@ import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import UserProvider from "@/components/UserProvider";
 import { createClient } from "@/lib/supabase/server";
+import Topbar from "@/components/Topbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,10 +33,15 @@ export default async function RootLayout({
 
   return (
     <html lang="pl" suppressHydrationWarning>
-      <body className={`bg-background ${geistSans.variable} ${geistMono.variable}`}>
+      <body
+        className={`bg-background ${geistSans.variable} ${geistMono.variable}`}
+      >
         <UserProvider user={user}>
           <Sidebar />
-          <main className="md:ml-15 lg:ml-50 min-h-screen">{children}</main>
+          <div className="md:ml-15 lg:ml-50 h-svh flex flex-col overflow-hidden">
+            <Topbar />
+            <main className="flex-1 flex flex-col min-h-0">{children}</main>
+          </div>
         </UserProvider>
       </body>
     </html>

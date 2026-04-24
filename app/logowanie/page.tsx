@@ -272,8 +272,18 @@ function RegisterForm() {
 export default function Page() {
   const [mode, setMode] = useState<Mode>("login");
 
+  async function SignInWithGoogle() {
+    const supabase = createClient();
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
+  }
+
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12">
+    <div className="flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         <div className="flex flex-col items-center mb-8">
           <div className="flex items-center gap-2 mb-2">
@@ -317,7 +327,10 @@ export default function Page() {
             <div className="flex-1 h-px bg-border" />
           </div>
 
-          <button className="w-full flex items-center justify-center cursor-pointer gap-3 border border-border hover:border-border-md bg-surface text-text-1 text-sm font-semibold py-3 rounded-xl transition-colors">
+          <button
+            onClick={() => SignInWithGoogle()}
+            className="w-full flex items-center justify-center cursor-pointer gap-3 border border-border hover:border-border-md bg-surface text-text-1 text-sm font-semibold py-3 rounded-xl transition-colors"
+          >
             Kontynuuj z Google
           </button>
         </div>
