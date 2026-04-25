@@ -1,3 +1,4 @@
+import React from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -5,6 +6,7 @@ import Sidebar from "@/components/Sidebar";
 import UserProvider from "@/components/UserProvider";
 import { createClient } from "@/lib/supabase/server";
 import Topbar from "@/components/Topbar";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,13 +36,22 @@ export default async function RootLayout({
   return (
     <html lang="pl" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={`bg-background ${geistSans.variable} ${geistMono.variable}`}
       >
         <UserProvider user={user}>
           <Sidebar />
           <div className="md:ml-15 lg:ml-50 h-svh flex flex-col overflow-hidden">
             <Topbar />
-            <main className="flex-1 flex flex-col min-h-0">{children}</main>
+            <main className="flex-1 flex flex-col min-h-0 overflow-y-auto">
+              {children}
+            </main>
+            <Toaster
+              position="top-center"
+              toastOptions={{
+                classNames: { icon: "text-accent" },
+              }}
+            />
           </div>
         </UserProvider>
       </body>

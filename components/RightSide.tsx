@@ -16,11 +16,12 @@ const RightSide = () => {
     );
 
   return (
-    <div className="w-50 shrink-0 overflow-y-auto flex flex-col items-center pt-4 gap-3">
+    <div className="w-50 shrink-0 overflow-y-auto hidden md:flex flex-col items-center pt-4 gap-3">
       <Calendar
         mode="single"
         locale={pl}
         showOutsideDays={false}
+        // selected={new Date()}
         modifiers={{ event: eventDates }}
         modifiersClassNames={{ event: "calendar-event" }}
         className="rounded-xl border [--cell-size:--spacing(6)] bg-surface"

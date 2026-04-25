@@ -2,11 +2,12 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import { useUser } from "@/components/UserProvider";
+import { useUser, useDisplayName } from "@/components/UserProvider";
 import Link from "next/link";
 
 const Topbar = () => {
   const user = useUser();
+  const displayName = useDisplayName();
   return (
     <div className={"h-14 border-b border-border bg-surface flex"}>
       <div className="w-full flex items-center justify-center">
@@ -20,17 +21,14 @@ const Topbar = () => {
       </div>
       {user ? (
         <div className="w-80 flex items-center justify-end pr-5">
-          <div className={"pr-4"}>{user?.user_metadata.full_name}</div>
+          <div className={"pr-4"}>{displayName}</div>
           <div
             className={
               "w-9 h-9 rounded-full flex items-center justify-center text-accent font-bold bg-background"
             }
           >
-            {user?.user_metadata.full_name
-              ? user.user_metadata.full_name
-                  .split(" ")
-                  .map((n: string) => n[0])
-                  .join("")
+            {displayName
+              ? displayName.split(" ").map((n: string) => n[0]).join("")
               : "?"}
           </div>
         </div>
