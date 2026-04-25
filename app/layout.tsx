@@ -33,13 +33,20 @@ export default async function RootLayout({
     data: { user },
   } = await supabase.auth.getUser();
 
+  const { data: profile } = user
+    ? await supabase.from("profiles").select("display_name").eq("id", user.id).single()
+    : { data: null };
+
+  const displayName =
+    profile?.display_name ?? user?.user_metadata?.full_name ?? "";
+
   return (
     <html lang="pl" suppressHydrationWarning>
       <body
         suppressHydrationWarning
         className={`bg-background ${geistSans.variable} ${geistMono.variable}`}
       >
-        <UserProvider user={user}>
+        <UserProvider user={user} displayName={displayName}>
           <Sidebar />
           <div className="md:ml-15 lg:ml-50 h-svh flex flex-col overflow-hidden">
             <Topbar />
