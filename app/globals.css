@@ -150,6 +150,9 @@
   html {
     @apply font-sans;
   }
+  input, textarea, select, button {
+    font-family: inherit;
+  }
 }
 
 .calendar-event button {

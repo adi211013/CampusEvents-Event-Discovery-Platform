@@ -37,10 +37,15 @@ const RightSide = () => {
             return (
               <label
                 key={cat.id}
+                htmlFor={`cat-${cat.id}`}
                 className="flex items-center gap-2.5 cursor-pointer group"
-                onClick={() => toggle(cat.id)}
               >
-                <Checkbox checked={checked} className="shrink-0" />
+                <Checkbox
+                  id={`cat-${cat.id}`}
+                  checked={checked}
+                  onCheckedChange={() => toggle(cat.id)}
+                  className="shrink-0 data-checked:bg-accent data-checked:border-accent cursor-pointer"
+                />
                 <span className="text-sm text-text-2 group-hover:text-text-1 transition-colors flex-1">
                   {cat.label}
                 </span>
