@@ -7,6 +7,8 @@ import UserProvider from "@/components/UserProvider";
 import { createClient } from "@/lib/supabase/server";
 import Topbar from "@/components/Topbar";
 import { Toaster } from "sonner";
+import BottomNav from "@/components/BottomNav";
+import ProposeEventModal from "@/components/ProposeEventModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +36,11 @@ export default async function RootLayout({
   } = await supabase.auth.getUser();
 
   const { data: profile } = user
-    ? await supabase.from("profiles").select("display_name").eq("id", user.id).single()
+    ? await supabase
+        .from("profiles")
+        .select("display_name")
+        .eq("id", user.id)
+        .single()
     : { data: null };
 
   const displayName =
@@ -48,9 +54,11 @@ export default async function RootLayout({
       >
         <UserProvider user={user} displayName={displayName}>
           <Sidebar />
+          <BottomNav />
+          <ProposeEventModal />
           <div className="md:ml-15 lg:ml-50 h-svh flex flex-col overflow-hidden">
             <Topbar />
-            <main className="flex-1 flex flex-col min-h-0 overflow-y-auto">
+            <main className="flex-1 flex flex-col min-h-0 overflow-y-auto pb-19 md:pb-0">
               {children}
             </main>
             <Toaster

@@ -1,39 +1,42 @@
 "use client";
 
-import { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { pl } from "react-day-picker/locale";
-import { CATEGORIES, type CategoryId } from "@/lib/categories";
+import { CATEGORIES } from "@/lib/categories";
+import { useStore } from "@/lib/store";
+import { mockEvents } from "@/lib/mock-events";
 
-const RightSide = () => {
-  const eventDates = [new Date(2026, 3, 28), new Date(2026, 3, 30)];
-  const [selected, setSelected] = useState<CategoryId[]>([]);
-
-  const toggle = (id: CategoryId) =>
-    setSelected((prev) =>
-      prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id],
-    );
+const RightSide = ({ inline = false }: { inline?: boolean }) => {
+  const eventDates = mockEvents.map((e) => new Date(e.start_date));
+  const { selectedCategories, toggleCategory } = useStore();
 
   return (
-    <div className="w-50 shrink-0 overflow-y-auto hidden md:flex flex-col items-center pt-4 gap-3">
+    <div
+      className={
+        inline
+          ? "flex flex-col gap-3"
+          : "w-50 shrink-0 overflow-y-auto hidden lg:flex flex-col items-center pt-4 gap-3"
+      }
+    >
       <Calendar
         mode="single"
         locale={pl}
         showOutsideDays={false}
-        // selected={new Date()}
         modifiers={{ event: eventDates }}
         modifiersClassNames={{ event: "calendar-event" }}
-        className="rounded-xl border [--cell-size:--spacing(6)] bg-surface"
+        className={`rounded-xl border [--cell-size:--spacing(6)] bg-surface${inline ? " w-full" : ""}`}
       />
 
-      <div className="w-46 rounded-xl border border-border bg-surface px-3 py-3">
+      <div
+        className={`rounded-xl border border-border bg-surface px-3 py-3${inline ? " w-full" : " w-46"}`}
+      >
         <p className="text-sm font-semibold text-text-1 mb-3">
           Filtruj po kategorii
         </p>
         <div className="flex flex-col gap-2">
           {CATEGORIES.map((cat) => {
-            const checked = selected.includes(cat.id);
+            const checked = selectedCategories.includes(cat.id);
             return (
               <label
                 key={cat.id}
@@ -43,13 +46,15 @@ const RightSide = () => {
                 <Checkbox
                   id={`cat-${cat.id}`}
                   checked={checked}
-                  onCheckedChange={() => toggle(cat.id)}
+                  onCheckedChange={() => toggleCategory(cat.id)}
                   className="shrink-0 data-checked:bg-accent data-checked:border-accent cursor-pointer"
                 />
                 <span className="text-sm text-text-2 group-hover:text-text-1 transition-colors flex-1">
                   {cat.label}
                 </span>
-                <span className="text-xs text-text-3">0</span>
+                <span className="text-xs text-text-3">
+                  {mockEvents.filter((e) => e.tags.includes(cat.id)).length}
+                </span>
               </label>
             );
           })}
