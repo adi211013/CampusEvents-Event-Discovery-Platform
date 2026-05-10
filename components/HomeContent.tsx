@@ -22,11 +22,11 @@ export default function HomeContent({ gridEvents, browseEvents }: Props) {
 
   const filtered = activeFilters.length === 0
     ? gridEvents
-    : gridEvents.filter((e) => e.tags.some((t) => activeFilters.includes(t as any)));
+    : gridEvents.filter((e) => (e.tags ?? []).some((t) => activeFilters.includes(t as any)));
 
   const filteredBrowse = activeFilters.length === 0
     ? browseEvents
-    : browseEvents.filter((e) => e.tags.some((t) => activeFilters.includes(t as any)));
+    : browseEvents.filter((e) => (e.tags ?? []).some((t) => activeFilters.includes(t as any)));
 
   return (
     <div className="px-4 md:px-5 py-4 flex flex-col gap-6 pb-8">

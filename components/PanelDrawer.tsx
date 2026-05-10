@@ -5,7 +5,7 @@ import { useStore } from "@/lib/store";
 import RightSide from "@/components/RightSide";
 import type { Event } from "@/lib/types";
 
-export default function PanelDrawer({ events }: { events: Event[] }) {
+export default function PanelDrawer({ events, filterEvents }: { events: Event[]; filterEvents?: Event[] }) {
   const { drawerOpen, closeDrawer } = useStore();
 
   if (!drawerOpen) return null;
@@ -27,7 +27,7 @@ export default function PanelDrawer({ events }: { events: Event[] }) {
           </button>
         </div>
         <div className="flex-1 overflow-y-auto p-4">
-          <RightSide inline events={events} />
+          <RightSide inline events={events} filterEvents={filterEvents} />
         </div>
       </div>
     </>

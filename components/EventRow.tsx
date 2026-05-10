@@ -52,7 +52,7 @@ export default function EventRow({ event }: { event: Event }) {
         )}
       </div>
       <div className="hidden sm:flex gap-1 shrink-0">
-        {event.tags.map((tag) => {
+        {(event.tags ?? []).map((tag) => {
           const cat = CATEGORIES.find((c) => c.id === tag);
           return cat ? (
             <span key={tag} className="text-[11px] font-bold px-2 py-0.5 rounded-md" style={{ backgroundColor: cat.bg, color: cat.color }}>

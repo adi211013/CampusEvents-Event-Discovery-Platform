@@ -37,7 +37,7 @@ export default function DiscoverPage() {
     return events.filter((e) => {
       const matchesQuery = query === "" || e.title.toLowerCase().includes(query.toLowerCase());
       const matchesCategory =
-        selectedCategories.length === 0 || e.tags.some((t) => selectedCategories.includes(t as CategoryId));
+        selectedCategories.length === 0 || (e.tags ?? []).some((t) => selectedCategories.includes(t as CategoryId));
       return matchesQuery && matchesCategory;
     });
   }, [events, query, selectedCategories]);

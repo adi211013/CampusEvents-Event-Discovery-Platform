@@ -53,6 +53,7 @@ export default async function Page() {
     .from("events")
     .select(EVENT_SELECT)
     .eq("status", "approved")
+    .gte("start_date", new Date().toISOString())
     .order("start_date", { ascending: true })
     .limit(5);
   if (gridIds.length > 0) {
@@ -73,8 +74,8 @@ export default async function Page() {
       <div className="flex-1 overflow-y-auto">
         <HomeContent gridEvents={gridEvents} browseEvents={browseEvents} />
       </div>
-      <RightSide events={calendarEvents} />
-      <PanelDrawer events={calendarEvents} />
+      <RightSide events={calendarEvents} filterEvents={[...gridEvents, ...browseEvents]} />
+      <PanelDrawer events={calendarEvents} filterEvents={[...gridEvents, ...browseEvents]} />
     </div>
   );
 }

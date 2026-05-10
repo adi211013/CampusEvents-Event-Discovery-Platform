@@ -61,8 +61,8 @@ export default function EventCard({ event }: { event: Event }) {
         <div
           className="w-12 shrink-0 rounded-lg flex flex-col items-center justify-center py-2.5"
           style={{
-            backgroundColor: CATEGORIES.find((c) => c.id === event.tags[0])?.bg,
-            color: CATEGORIES.find((c) => c.id === event.tags[0])?.color,
+            backgroundColor: CATEGORIES.find((c) => c.id === (event.tags ?? [])[0])?.bg,
+            color: CATEGORIES.find((c) => c.id === (event.tags ?? [])[0])?.color,
           }}
         >
           <span className="text-lg font-bold leading-none">{day}</span>
@@ -70,7 +70,7 @@ export default function EventCard({ event }: { event: Event }) {
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex gap-1 mb-1 flex-wrap">
-            {event.tags.map((tag) => {
+            {(event.tags ?? []).map((tag) => {
               const c = CATEGORIES.find((c) => c.id === tag);
               return c ? (
                 <span
@@ -105,10 +105,10 @@ export default function EventCard({ event }: { event: Event }) {
       {/* Desktop — full card */}
       <div className="hidden md:flex flex-col rounded-xl border border-border bg-surface overflow-hidden">
         <div
-          className={`h-25 bg-linear-to-br ${CATEGORIES.find((c) => c.id === event.tags[0])?.gradient} relative shrink-0`}
+          className={`h-25 bg-linear-to-br ${CATEGORIES.find((c) => c.id === (event.tags ?? [])[0])?.gradient} relative shrink-0`}
         >
           <div className="absolute top-3 left-3 flex gap-1">
-            {event.tags.map((tag) => {
+            {(event.tags ?? []).map((tag) => {
               const c = CATEGORIES.find((c) => c.id === tag);
               return c ? (
                 <span

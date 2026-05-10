@@ -19,9 +19,11 @@ function isSameDay(a: Date, b: Date) {
 type Props = {
   inline?: boolean;
   events?: Event[];
+  filterEvents?: Event[];
 };
 
-const RightSide = ({ inline = false, events = [] }: Props) => {
+const RightSide = ({ inline = false, events = [], filterEvents }: Props) => {
+  const countEvents = filterEvents ?? events;
   const [selectedDay, setSelectedDay] = useState<Date | undefined>();
   const { selectedCategories, toggleCategory } = useStore();
 
@@ -87,16 +89,18 @@ const RightSide = ({ inline = false, events = [] }: Props) => {
         <div className="flex flex-col gap-2">
           {CATEGORIES.map((cat) => {
             const checked = selectedCategories.includes(cat.id);
-            const count = events.filter((e) => e.tags.includes(cat.id)).length;
+            const count = countEvents.filter((e) => (e.tags ?? []).includes(cat.id)).length;
+            const disabled = count === 0 && !checked;
             return (
               <label
                 key={cat.id}
                 htmlFor={`cat-${cat.id}`}
-                className="flex items-center gap-2.5 cursor-pointer group"
+                className={`flex items-center gap-2.5 ${disabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer group"}`}
               >
                 <Checkbox
                   id={`cat-${cat.id}`}
                   checked={checked}
+                  disabled={disabled}
                   onCheckedChange={() => toggleCategory(cat.id)}
                   className="shrink-0 data-checked:bg-accent data-checked:border-accent cursor-pointer"
                 />

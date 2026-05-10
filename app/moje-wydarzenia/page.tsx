@@ -23,7 +23,7 @@ type SavedEvent = {
 const MONTHS = ["sty","lut","mar","kwi","maj","cze","lip","sie","wrz","paź","lis","gru"];
 
 function EventItem({ item, onUnsave }: { item: SavedEvent; onUnsave: (id: number) => void }) {
-  const cat = CATEGORIES.find((c) => item.events.tags.includes(c.id));
+  const cat = CATEGORIES.find((c) => (item.events.tags ?? []).includes(c.id));
   const date = new Date(item.events.start_date);
   const day = date.getDate();
   const month = MONTHS[date.getMonth()];
