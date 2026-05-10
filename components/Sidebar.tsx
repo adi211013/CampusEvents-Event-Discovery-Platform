@@ -2,9 +2,18 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Compass, CalendarDays, Settings, Plus, GraduationCap } from "lucide-react";
+import {
+  Home,
+  Compass,
+  CalendarDays,
+  Settings,
+  Plus,
+  GraduationCap,
+  ShieldCheck,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/lib/store";
+import { useIsAdmin } from "@/components/UserProvider";
 
 const navItems = [
   { href: "/", label: "Strona główna", icon: Home },
@@ -16,6 +25,7 @@ const navItems = [
 export default function Sidebar() {
   const pathname = usePathname();
   const openPropose = useStore((s) => s.openPropose);
+  const isAdmin = useIsAdmin();
 
   return (
     <div className="hidden md:flex flex-col fixed h-screen w-15 lg:w-50 bg-surface border-r border-border z-40">
@@ -47,7 +57,21 @@ export default function Sidebar() {
         })}
       </nav>
 
-      <div className="p-2">
+      <div className="p-2 flex flex-col gap-2">
+        {isAdmin && (
+          <Link
+            href="/admin"
+            className={[
+              "flex items-center justify-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+              pathname === "/admin"
+                ? "bg-accent-light text-accent font-semibold"
+                : "border-transparent text-text-2 hover:bg-accent-light hover:text-accent",
+            ].join(" ")}
+          >
+            <ShieldCheck className="size-5 shrink-0" />
+            <span className="hidden lg:block">Panel admina</span>
+          </Link>
+        )}
         <Button
           onClick={openPropose}
           className="flex items-center justify-center gap-2 w-full bg-accent hover:bg-accent/90 text-white text-sm font-semibold rounded-lg transition-colors h-10 cursor-pointer"

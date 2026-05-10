@@ -1,16 +1,14 @@
 import { CATEGORIES } from "@/lib/categories";
-import type { MockEvent } from "@/lib/mock-events";
+import type { Event } from "@/lib/types";
 
-export default function HeroBanner({ event }: { event: MockEvent }) {
+export default function HeroBanner({ event }: { event: Event }) {
   const cat = CATEGORIES.find((c) => c.id === event.tags[0]);
 
   return (
     <div className={`rounded-xl overflow-hidden relative bg-gradient-to-br ${cat?.gradient ?? "from-blue-600 to-violet-600"} min-h-[160px] md:min-h-[200px]`}>
       <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent" />
       <div className="relative z-10 flex flex-col justify-end min-h-[160px] md:min-h-[200px] p-4 md:p-6">
-        <span
-          className="text-[11px] font-bold px-2 py-0.5 rounded-md w-fit mb-2 bg-white/20 text-white backdrop-blur-sm"
-        >
+        <span className="text-[11px] font-bold px-2 py-0.5 rounded-md w-fit mb-2 bg-white/20 text-white backdrop-blur-sm">
           {cat?.label}
         </span>
         <h2 className="text-xl md:text-2xl font-bold text-white leading-tight">
@@ -20,9 +18,20 @@ export default function HeroBanner({ event }: { event: MockEvent }) {
           {event.short_description}
         </p>
         <div className="flex gap-2 mt-3">
-          <button className="bg-accent text-white text-sm font-semibold px-4 rounded-lg min-h-[44px] hover:bg-accent/90 transition-colors">
-            Dowiedz się więcej
-          </button>
+          {event.url ? (
+            <a
+              href={event.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-accent text-white text-sm font-semibold px-4 rounded-lg min-h-[44px] flex items-center hover:bg-accent/90 transition-colors"
+            >
+              Dowiedz się więcej
+            </a>
+          ) : (
+            <button className="bg-accent text-white text-sm font-semibold px-4 rounded-lg min-h-[44px] hover:bg-accent/90 transition-colors">
+              Dowiedz się więcej
+            </button>
+          )}
           <button className="bg-white/20 backdrop-blur-sm text-white text-sm font-semibold px-4 rounded-lg min-h-[44px] border border-white/30 hover:bg-white/30 transition-colors">
             Zapisz
           </button>

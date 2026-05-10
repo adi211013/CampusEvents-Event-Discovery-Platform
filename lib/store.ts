@@ -10,6 +10,10 @@ type Store = {
   proposeOpen: boolean;
   openPropose: () => void;
   closePropose: () => void;
+  savedIds: number[];
+  initSaved: (ids: number[]) => void;
+  addSaved: (id: number) => void;
+  removeSaved: (id: number) => void;
 };
 
 export const useStore = create<Store>((set) => ({
@@ -26,4 +30,8 @@ export const useStore = create<Store>((set) => ({
   proposeOpen: false,
   openPropose: () => set({ proposeOpen: true }),
   closePropose: () => set({ proposeOpen: false }),
+  savedIds: [],
+  initSaved: (ids) => set({ savedIds: ids }),
+  addSaved: (id) => set((s) => ({ savedIds: [...s.savedIds, id] })),
+  removeSaved: (id) => set((s) => ({ savedIds: s.savedIds.filter((i) => i !== id) })),
 }));

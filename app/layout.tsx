@@ -9,6 +9,7 @@ import Topbar from "@/components/Topbar";
 import { Toaster } from "sonner";
 import BottomNav from "@/components/BottomNav";
 import ProposeEventModal from "@/components/ProposeEventModal";
+import SavedEventsLoader from "@/components/SavedEventsLoader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,13 +39,14 @@ export default async function RootLayout({
   const { data: profile } = user
     ? await supabase
         .from("profiles")
-        .select("display_name")
+        .select("display_name, is_admin")
         .eq("id", user.id)
         .single()
     : { data: null };
 
   const displayName =
     profile?.display_name ?? user?.user_metadata?.full_name ?? "";
+  const isAdmin = profile?.is_admin ?? false;
 
   return (
     <html lang="pl" suppressHydrationWarning>
@@ -52,10 +54,11 @@ export default async function RootLayout({
         suppressHydrationWarning
         className={`bg-background ${geistSans.variable} ${geistMono.variable}`}
       >
-        <UserProvider user={user} displayName={displayName}>
+        <UserProvider user={user} displayName={displayName} isAdmin={isAdmin}>
           <Sidebar />
           <BottomNav />
           <ProposeEventModal />
+          <SavedEventsLoader />
           <div className="md:ml-15 lg:ml-50 h-svh flex flex-col overflow-hidden">
             <Topbar />
             <main className="flex-1 flex flex-col min-h-0 overflow-y-auto pb-19 md:pb-0">

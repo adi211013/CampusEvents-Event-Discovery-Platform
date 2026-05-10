@@ -7,7 +7,6 @@ export type MockEvent = {
   start_date: string;
   short_description: string;
   tags: CategoryId[];
-  price: number | null;
   organizer: string;
 };
 
@@ -19,7 +18,6 @@ export const mockEvents: MockEvent[] = [
     start_date: "2026-05-15",
     short_description: "48-godzinny maraton kodowania dla studentów wszystkich kierunków. Wygraj nagrody i poznaj przyszłych współpracowników z branży IT.",
     tags: ["tech"],
-    price: null,
     organizer: "Koło Naukowe IT PRz",
   },
   {
@@ -29,7 +27,6 @@ export const mockEvents: MockEvent[] = [
     start_date: "2026-05-22",
     short_description: "Największe święto studentów Politechniki Rzeszowskiej. Koncerty, zabawy i niezapomniane wspomnienia.",
     tags: ["festiwal"],
-    price: 29,
     organizer: "Samorząd Studencki PRz",
   },
   {
@@ -39,7 +36,6 @@ export const mockEvents: MockEvent[] = [
     start_date: "2026-05-25",
     short_description: "Spotkaj pracodawców z największych firm technologicznych regionu. Przynieś CV i zdobądź wymarzoną pracę lub staż.",
     tags: ["kariera"],
-    price: null,
     organizer: "Biuro Karier PRz",
   },
   {
@@ -49,7 +45,6 @@ export const mockEvents: MockEvent[] = [
     start_date: "2026-05-20",
     short_description: "Odkryj fascynujący świat nauki przez eksperymenty, wykłady i pokazy. Dla studentów i mieszkańców Rzeszowa.",
     tags: ["nauka"],
-    price: null,
     organizer: "Wydział Nauk Stosowanych",
   },
   {
@@ -59,7 +54,6 @@ export const mockEvents: MockEvent[] = [
     start_date: "2026-05-18",
     short_description: "Intensywny warsztat projektowania interfejsów użytkownika. Nauczysz się Figmy i podstaw user research.",
     tags: ["warsztaty", "tech"],
-    price: 15,
     organizer: "Design Lab PRz",
   },
   {
@@ -69,7 +63,6 @@ export const mockEvents: MockEvent[] = [
     start_date: "2026-05-17",
     short_description: "Amatorski bieg po terenie kampusu. Zapisz się i ruszaj po zdrowie — wszystkie poziomy zaawansowania mile widziane.",
     tags: ["sport"],
-    price: null,
     organizer: "AZS PRz",
   },
   {
@@ -79,7 +72,6 @@ export const mockEvents: MockEvent[] = [
     start_date: "2026-06-01",
     short_description: "Wernisaż, muzyka na żywo i slam poetycki w jednym miejscu. Noc pełna artystycznych wrażeń.",
     tags: ["kultura"],
-    price: null,
     organizer: "Klub Kultury Studenckiej",
   },
   {
@@ -89,7 +81,6 @@ export const mockEvents: MockEvent[] = [
     start_date: "2026-06-05",
     short_description: "Gościnny wykład o zastosowaniach sztucznej inteligencji w przemyśle. Prelegent z Google DeepMind.",
     tags: ["tech", "nauka"],
-    price: null,
     organizer: "Wydział Informatyki PRz",
   },
 ];
